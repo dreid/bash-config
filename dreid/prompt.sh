@@ -21,7 +21,7 @@ HOST_COLOR=$BLDRED;
 USER_COLOR=$BLDBLU;
 case $TERM in
     xterm*)
-            TITLE_STRING="\[\033]0;\u@\h:\w \$(__git_ps1 \" (%s)\")\007\]"
+            TITLE_STRING="\033]0;\u@\h:\w \$(__git_ps1 \" (%s)\")\007"
             ;;
     *)
             TITLE_STRING=''
@@ -34,4 +34,4 @@ if [[ -n "${SSH_CONNECTION}" ]]; then
     HOST_COLOR="\e[${ALT_HOST_COLOR_BASES[${base}]}"
 fi
 
-PS1="${TITLE_STRING}${HOST_COLOR}\h ${USER_COLOR}\u${TXTRST}:\W\$(__git_ps1 \" (${BLDYLW}%s${TXTRST})\")> "
+PS1="\[${TITLE_STRING}${HOST_COLOR}\]\h \[${USER_COLOR}\]\u\[${TXTRST}\]:\W\[\$(__git_ps1 \" (${BLDYLW}%s${TXTRST})\")\]> "
