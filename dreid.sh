@@ -12,6 +12,7 @@ FILES=(
     prompt
     aliases
     sshkeys
+    mochi
 )
 
 pushd ~/.bash.d/dreid > /dev/null
@@ -27,3 +28,5 @@ for file in ${FILES[*]}; do
 done
 
 popd > /dev/null
+
+export PATH
