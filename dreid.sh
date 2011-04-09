@@ -10,6 +10,7 @@ FILES=(
     shopts
     git
     prompt
+    env
     aliases
     sshkeys
     mochi
@@ -19,10 +20,10 @@ pushd ~/.bash.d/dreid > /dev/null
 for file in ${FILES[*]}; do
     START_TIME=$(date +%s)
     echo -ne "Loading ${file}..."
-    pad " " $((50 - ${#file}))
+    pad " " $((53 - ${#file}))
     source "${file}.sh" && \
-        echo -ne "${BLDGRN}  OK" || \
-        echo -ne "${BLDRED}FAIL"
+        echo -ne "${BLDGRN}\xe2\x98\x80" || \
+        echo -ne "${BLDRED}\xe2\x98\x81"
 
     echo -e "${TXTRST} [$(($(date +%s) - START_TIME))s]"
 done
