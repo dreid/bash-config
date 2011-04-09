@@ -7,6 +7,7 @@ function pad {
 
 FILES=(
     colors
+    env
     shopts
     git
     prompt
