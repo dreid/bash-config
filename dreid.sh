@@ -23,7 +23,7 @@ for file in ${FILES[*]}; do
     echo -ne "Loading ${file}..."
     pad " " $((53 - ${#file}))
     source "${file}.sh" && \
-        echo -ne "${BLDGRN}\xe2\x98\x80" || \
+        echo -ne "${TXTGRN}\xe2\x98\x80" || \
         echo -ne "${BLDRED}\xe2\x98\x81"
 
     echo -e "${TXTRST} [$(($(date +%s) - START_TIME))s]"
