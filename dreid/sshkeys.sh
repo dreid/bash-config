@@ -1,6 +1,8 @@
 /usr/bin/ssh-add -l >& /dev/null
 
-if [[ $? != 0 ]]; then
+if [[ ! -f ~/.ssh/id_rsa ]]; then
+    false;
+elif [[ $? != 0 ]]; then
     echo
     pad "-" 70
     echo
