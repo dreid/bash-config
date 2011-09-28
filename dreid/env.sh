@@ -2,9 +2,14 @@ WORKON_HOME=~/.virtualenvs
 
 mkdir -p $WORKON_HOME
 
-PATH=~/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
-EDITOR=dtrt-emacs
+PATH=~/.rbenv/bin:~/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 
-NODE_PATH=/usr/local/lib/node
+## rbenv
 
-export PATH EDITOR WORKON_HOME NODE_PATH
+RBENV=$(type -p rbenv)
+
+if [[ $RBENV != "" ]]; then
+    eval "$(rbenv init -)";
+fi
+
+export PATH WORKON_HOME
