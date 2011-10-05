@@ -2,7 +2,8 @@ WORKON_HOME=~/.virtualenvs
 
 mkdir -p $WORKON_HOME
 
-PATH=~/.rbenv/bin:~/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=~/.rbenv/bin:~/bin:$PATH
 
 ## rbenv
 
@@ -13,3 +14,5 @@ if [[ $RBENV != "" ]]; then
 fi
 
 export PATH WORKON_HOME
+
+source /usr/local/bin/virtualenvwrapper.sh

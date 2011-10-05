@@ -1,6 +1,8 @@
 /usr/bin/ssh-add -l >& /dev/null
 
-if [[ ! -f ~/.ssh/id_rsa ]]; then
+if [[ $? == 0 ]]; then
+    true
+elif [[ ! -f ~/.ssh/id_rsa ]]; then
     false;
 elif [[ $? != 0 ]]; then
     echo
