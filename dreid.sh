@@ -14,7 +14,6 @@ FILES=(
     env
     aliases
     sshkeys
-    mochi
 )
 
 pushd ~/.bash.d/dreid > /dev/null
