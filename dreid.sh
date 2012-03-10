@@ -14,6 +14,8 @@ FILES=(
     env
     aliases
     sshkeys
+    aws
+    combinator
 )
 
 pushd ~/.bash.d/dreid > /dev/null
