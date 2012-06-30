@@ -17,4 +17,4 @@ fi
 
 export PATH WORKON_HOME EDITOR
 
-source /usr/local/bin/virtualenvwrapper.sh
+source ~/Library/Python/2.7/bin/virtualenvwrapper.sh

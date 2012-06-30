@@ -11,10 +11,8 @@ FILES=(
     shopts
     git
     prompt
-    env
     aliases
     sshkeys
-    aws
     combinator
 )
 
