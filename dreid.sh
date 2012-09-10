@@ -13,7 +13,7 @@ FILES=(
     prompt
     aliases
     sshkeys
-    combinator
+    completions
 )
 
 pushd ~/.bash.d/dreid > /dev/null

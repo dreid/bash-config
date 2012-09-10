@@ -1,0 +1,38 @@
+_fix()
+{
+    local cur prev opts base
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    if [[ "${cur}" == ":" ]]; then
+        # fix uses ':' to separate command from arguments.  We don't want it to
+        # be cur because compgen won't do the right thing.
+        cur=''
+    fi
+
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    if [[ "${prev}" == ":" ]]; then
+        # fix uses ':' to separate command from arguments.  We don't want it to
+        # be prev because the case statement below won't do the right thing.
+        prev="${COMP_WORDS[COMP_CWORD-2]}:"
+    fi
+
+    case "$prev" in
+        node:)
+            # Should use fix list_nodes but striping ansi escape sequences is hard.
+            local running=$(ls ./nodes/ | sed -e "s/\.json$//")
+            COMPREPLY=( $(compgen -W "${running}" -- ${cur}) )
+            return 0
+            ;;
+        *)
+        ;;
+    esac
+
+    local orders=$(fix -l | grep "^    " | cut -d' ' -f5)
+    COMPREPLY=($(compgen -o nospace -W "${orders}" -- ${cur}))
+    return 0
+
+}
+
+complete -F _fix fix
