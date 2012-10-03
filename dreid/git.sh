@@ -1,4 +1,5 @@
 GIT_COMP_SEARCH=(
+    "/usr/share/git-core/git-completion.bash"
     "/usr/local/etc/bash_completion.d/git-completion.bash"
     "/etc/bash_completion.d/git"
 )

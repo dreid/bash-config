@@ -1,8 +1,55 @@
+_contains()
+{
+    local n=$#
+    local value=${!n}
+    for ((i=1;i < $#;i++)) {
+        if [ "${!i}" == "${value}" ]; then
+            return 0
+        fi
+    }
+    return 1
+}
+
+
+_find_prev_command()
+{
+    local prev_command=""
+    for word in ${COMP_WORDS[@]}; do
+        _contains "${orders_with_args[@]}" "${word}"
+        if [[ $? -eq 0 ]]; then
+            prev_command="${word}"
+        fi
+    done
+    echo "${prev_command}"
+}
+
+_fix_nodes()
+{
+    local running=$( (cd ./nodes; ls *.json) | sed -e "s/\.json$//")
+    COMPREPLY=(
+        $(compgen -S' ' -W "all" -- ${cur})
+        $(compgen -W "${running}" -- ${cur}) )
+}
+
 _fix()
 {
-    local cur prev opts base
+    local cur prev_command
+
+    local orders_with_args=(
+        node
+        nodes_with_role
+        recipe
+        role
+        list_nodes_with_recipe
+        list_nodes_with_role
+        plugin
+    )
+
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
+    prev_command=$( _find_prev_command )
+
+    echo "${prev_command}"
 
     if [[ "${cur}" == ":" ]]; then
         # fix uses ':' to separate command from arguments.  We don't want it to
@@ -10,19 +57,9 @@ _fix()
         cur=''
     fi
 
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    if [[ "${prev}" == ":" ]]; then
-        # fix uses ':' to separate command from arguments.  We don't want it to
-        # be prev because the case statement below won't do the right thing.
-        prev="${COMP_WORDS[COMP_CWORD-2]}:"
-    fi
-
-    case "$prev" in
-        node:)
-            # Should use fix list_nodes but striping ansi escape sequences is hard.
-            local running=$(ls ./nodes/ | sed -e "s/\.json$//")
-            COMPREPLY=( $(compgen -W "${running}" -- ${cur}) )
+    case "${prev_command}" in
+        node)
+            _fix_nodes
             return 0
             ;;
         *)
@@ -30,9 +67,11 @@ _fix()
     esac
 
     local orders=$(fix -l | grep "^    " | cut -d' ' -f5)
-    COMPREPLY=($(compgen -o nospace -W "${orders}" -- ${cur}))
-    return 0
 
+    COMPREPLY=(
+        $(compgen -W "${orders_with_args}" -S':' -- ${cur})
+        $(compgen -S' ' -W "${orders}" -- ${cur}) )
+    return 0
 }
 
-complete -F _fix fix
+complete -o nospace -F _fix fix
